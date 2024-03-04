@@ -8,12 +8,6 @@ function gameSetup(canvas: HTMLCanvasElement) {
   const computer = new Player(canvas, PlayerIdentifier.computer, PlayerOrientation.right)
 
   const gameBoard = new GameBoard(canvas, [player, computer])
-
-  window.addEventListener('keydown', (event) => {
-    if (event.key !== PlayerDirection.up && event.key !== PlayerDirection.down) return
-    player.setDirection(event.key)
-  })
-
   gameBoard.draw()
 }
 
@@ -28,7 +22,6 @@ function main() {
   canvas.width = 800
   canvas.height = 600
   app.appendChild(canvas)
-
   gameSetup(canvas)
 }
 

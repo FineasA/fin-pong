@@ -40,6 +40,9 @@ export class Player implements PlayerInterface {
     this.playerOrientation = playerOrientation;
     this.playerIdentifier = playerIdentifier;
     this.y = this.getStartingPosition(canvas.height);
+
+    if (playerIdentifier === PlayerIdentifier.computer) return
+    window.addEventListener('keydown', (event) => this.onKeydown(event))
   }
 
   getStartingPosition(canvasHeight: number) {
@@ -63,7 +66,12 @@ export class Player implements PlayerInterface {
   move(ctx: CanvasRenderingContext2D) {
     if (this.currentPlayerDirection === PlayerDirection.notMoving) return
     this.currentPlayerDirection === PlayerDirection.up ? this.moveUp() : this.moveDown(ctx.canvas.height)
-    ctx.clearRect(0, 0, 800, 600)
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    if (event.key !== PlayerDirection.up && event.key !== PlayerDirection.down) return
+    this.setDirection(event.key)
   }
 
   draw(ctx: CanvasRenderingContext2D) {
